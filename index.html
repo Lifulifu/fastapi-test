@@ -42,7 +42,7 @@
     </style>
 
     <script>
-        function fetchData() {
+        async function fetchData() {
             const ulDom = document.querySelector('ul');
             const liDom = document.createElement('li');
             const route = document.querySelector('select').value;
@@ -51,22 +51,22 @@
             liDom.textContent = 'fetching...';
             ulDom.appendChild(liDom);
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                console.log(data);
 
-                    // update UI
-                    liDom.textContent = `response: ${data.emoji}`;
-                    liDom.classList.add('success');
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
+                // update UI
+                liDom.textContent = `response: ${data.emoji}`;
+                liDom.classList.add('success');
+            }
+            catch (e) {
+                console.error('Error fetching data:', e);
 
-                    // update UI
-                    liDom.textContent = 'error';
-                    liDom.classList.add('error');
-                });
+                // update UI
+                liDom.textContent = 'error';
+                liDom.classList.add('error');
+            }
         }
     </script>
 </head>
