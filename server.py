@@ -17,7 +17,7 @@ emojis = ['✋', '🤗', '😼', '👎', '💩', '🧠']
 def emoji():
     print('/emoji start')
     time.sleep(3)
-    print('/emoji start')
+    print('/emoji end')
     return {"emoji": emojis[random.randint(0, len(emojis)-1)]}
 
 @app.get("/async_emoji")
@@ -29,4 +29,4 @@ async def async_emoji():
 
 
 if __name__ == "__main__":
-    uvicorn.run('__main__:app', host="0.0.0.0", port=8100, workers=4, reload=True)
+    uvicorn.run('__main__:app', host="0.0.0.0", port=8100, workers=4, reload=True, log_level='error')
